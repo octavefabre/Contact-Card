@@ -1,0 +1,37 @@
+<div class="contact-card" (click)="goToDetail()">
+    <div class="contact-card-content">
+        <div class="header-contact">
+            <img class="avatar-img" [src]="contact.photoUrl" [alt]="contact.photoAlt || contact.name" width="80"
+                height="80" />
+            <button class="favorite-heart" (click)="onToggleFavoriteClick($event)">
+                <img [src]="
+      contact.favorite
+        ? 'https://cdn.freebiesupply.com/logos/large/2x/heart-logo-png-transparent.png'
+        : 'https://png.pngtree.com/png-vector/20210326/ourmid/pngtree-red-heart-background-png-image_3120599.jpg'
+    " alt="heart" />
+            </button>
+        </div>
+
+        <div>
+            <h3 class="contact-name">{{ contact.name }}</h3>
+            <p class="contact-role">
+
+                {{ contact.album }}
+            </p>
+        </div>
+
+        <a [href]="'mailto:' + contact.email" class="contact-email">
+            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            <span>{{ contact.email }}</span>
+        </a>
+
+        <p>Phone : {{ contact.phone }}</p>
+        <div class="best-song">
+        <p>Best song : {{ contact.bestSong }}</p>
+        </div>
+        <p>Created at : {{ contact.createdAt | date: 'dd/MM/yyyy HH:mm' }}</p>
+    </div>
+</div>

@@ -1,0 +1,57 @@
+<header class="header">
+  <div class="container">
+    <div class="header-content">
+
+      <div class="brand">
+        <div class="logo-icon">
+          <button (click)="goToHome()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 18V5l12-2v13" />
+              <circle cx="6" cy="18" r="3" />
+              <circle cx="18" cy="16" r="3" />
+            </svg>
+          </button>
+        </div>
+        <div>
+          <h1 class="brand-title">Contact<span class="brand-accent">Manager</span></h1>
+          <p class="brand-subtitle">App octave Fabre-Garrus</p>
+        </div>
+      </div>
+
+
+      <div class="search-wrapper desktop-search">
+        <div class="search-container">
+          <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.35-4.35" />
+          </svg>
+          <input type="search" placeholder="Search artists or labels" class="search-input" (input)="onSearch($event)">
+          <div class="suggestions-dropdown glass" [class.visible]="suggestions.length > 0">
+            <ul class="suggestions-list">
+              @for (s of suggestions; track s.id) {
+              <li>
+                <button class="suggestion-item" (click)="goToContactDetail(s.id)">
+                  <img [src]="s.photoUrl" [alt]="s.name" class="suggestion-img" />
+                  <div class="suggestion-info">
+                    <span class="suggestion-name">{{ s.name }}</span>
+                  </div>
+                </button>
+              </li>
+              }
+            </ul>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="actions">
+        <button class="btn btn-outline desktop-only" (click)="goToContacts()">My contacts</button>
+        <button class="btn btn-primary" (click)="goToNew()">Add Contact</button>
+      </div>
+
+
+    </div>
+  </div>
+</header>

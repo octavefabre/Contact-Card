@@ -1,0 +1,6 @@
+.contacts-wrapper {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.5rem;
+  padding: 1rem 0;
+}

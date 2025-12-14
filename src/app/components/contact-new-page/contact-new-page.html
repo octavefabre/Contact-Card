@@ -1,0 +1,50 @@
+<div class="form-container">
+    <h2>Create a New Contact</h2>
+    <p class="form-subtitle">Fill in the details below to add a new contact</p>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <div>
+            <label>Name</label>
+            <input formControlName="name" type="text" placeholder="Artist name">
+        </div>
+
+        <div>
+            <label>Email</label>
+            <input formControlName="email" type="email" placeholder="email@example.com">
+        </div>
+
+        <div>
+            <label>Phone</label>
+            <input formControlName="phone" type="text" placeholder="+1 (555) 000-0000">
+        </div>
+
+        <div>
+            <label>Album</label>
+            <input formControlName="album" type="text" placeholder="Favorite album">
+        </div>
+
+        <div>
+            <label>Best song</label>
+            <input formControlName="bestSong" type="text" placeholder="Their best song">
+        </div>
+
+        <div>
+            <label>Photo URL</label>
+            <input formControlName="photoUrl" type="text" placeholder="https://example.com/photo.jpg">
+        </div>
+        <div>
+            <label>Notes</label>
+            <input formControlName="notes" type="text" placeholder="notes">
+        </div>
+        <input formControlName="labelName" list="labels" placeholder="Label (optionnel)">
+        <datalist id="labels">
+            @for (l of labels; track l.id) {
+            <option [value]="l.name"></option>
+            }
+        </datalist>
+
+        <button type="submit">Create</button>
+
+    </form>
+</div>

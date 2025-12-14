@@ -1,0 +1,5 @@
+<div class="contacts-wrapper">
+  @for (c of filteredContacts; track c.id) {
+  <app-contact-card [contact]="c" (favoriteToggled)="onToggleFavorite(c.id)"></app-contact-card>
+  }
+</div>

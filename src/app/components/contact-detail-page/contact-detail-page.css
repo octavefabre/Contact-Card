@@ -1,0 +1,368 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  background-color: #ffffff;
+  color: hsl(240, 10%, 3.9%);
+  min-height: 100vh;
+  padding: 3rem 1rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Bebas Neue', 'Inter', sans-serif;
+  letter-spacing: 0.02em;
+}
+
+/* Container */
+.container {
+  max-width: 56rem;
+  margin: 0 auto;
+}
+
+/* Contact Card */
+.contact-card {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(145deg, hsl(262, 83%, 58%, 0.1) 0%, hsl(217, 91%, 60%, 0.1) 100%);
+  backdrop-filter: blur(12px);
+  border: 1px solid hsl(240, 5.9%, 90%, 0.5);
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 40px -10px hsl(262, 83%, 58%, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: slide-in 0.5s ease-out;
+}
+
+.contact-card:hover {
+  box-shadow: 0 20px 60px -10px hsl(262, 83%, 58%, 0.4);
+}
+
+.gradient-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, hsl(262, 83%, 58%) 0%, hsl(217, 91%, 60%) 100%);
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+.card-content {
+  position: relative;
+  padding: 2rem;
+}
+
+/* Card Header */
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.contact-id {
+  font-size: 0.875rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: hsl(240, 3.8%, 46.1%);
+}
+
+.favorite-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.75rem;
+  background: linear-gradient(135deg, hsl(262, 83%, 58%) 0%, hsl(217, 91%, 60%) 100%);
+  color: white;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.heart-icon {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+/* Profile Section */
+.profile-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  .profile-section {
+    flex-direction: row;
+  }
+}
+
+.image-container {
+  position: relative;
+}
+
+.image-wrapper {
+  width: 12rem;
+  height: 12rem;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 10px 40px -10px hsl(262, 83%, 58%, 0.3);
+
+}
+
+.profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.image-wrapper:hover .profile-image {
+  transform: scale(1.1);
+}
+
+.music-badge {
+  position: absolute;
+  bottom: -0.75rem;
+  right: -0.75rem;
+  width: 3rem;
+  height: 3rem;
+  background: linear-gradient(135deg, hsl(262, 83%, 58%) 0%, hsl(217, 91%, 60%) 100%);
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 40px -10px hsl(262, 83%, 58%, 0.3);
+}
+
+.music-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: white;
+}
+
+/* Profile Info */
+.profile-info {
+  flex: 1;
+}
+
+.name {
+  font-size: 2.25rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, hsl(262, 83%, 58%) 0%, hsl(217, 91%, 60%) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: hsl(240, 3.8%, 46.1%);
+  font-size: 0.875rem;
+  transition: color 0.2s ease;
+}
+
+.detail-item:hover {
+  color: hsl(240, 10%, 3.9%);
+}
+
+.icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.mail-icon {
+  color: hsl(262, 83%, 58%);
+}
+
+.phone-icon {
+  color: hsl(217, 91%, 60%);
+}
+
+/* Music Info */
+.music-info {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background-color: hsl(240, 4.8%, 95.9%, 0.5);
+  border-radius: 0.75rem;
+  border: 1px solid hsl(240, 5.9%, 90%, 0.5);
+}
+
+@media (min-width: 768px) {
+  .music-info {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: hsl(240, 3.8%, 46.1%);
+  margin-bottom: 0.25rem;
+}
+
+.info-value {
+  font-size: 1.125rem;
+  font-weight: bold;
+  color: hsl(240, 10%, 3.9%);
+}
+
+/* Notes Section */
+.notes-section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background-color: hsl(240, 4.8%, 95.9%, 0.3);
+  border-radius: 0.75rem;
+  border: 1px solid hsl(240, 5.9%, 90%, 0.5);
+}
+
+.notes-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: hsl(240, 3.8%, 46.1%);
+  margin-bottom: 0.5rem;
+}
+
+.notes-text {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: hsl(240, 10%, 3.9%);
+}
+
+/* Timestamps */
+.timestamps {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.75rem;
+  color: hsl(240, 3.8%, 46.1%);
+  flex-wrap: wrap;
+}
+
+.timestamp-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.calendar-icon {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: bold;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+}
+
+.btn-primary {
+  flex: 1;
+  background: linear-gradient(135deg, hsl(262, 83%, 58%) 0%, hsl(217, 91%, 60%) 100%);
+  color: white;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.btn-delete {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  background-color: hsl(0, 84.2%, 60.2%);
+  color: white;
+}
+
+.btn-delete:hover {
+  background-color: hsl(0, 84.2%, 55%);
+}
+
+.btn-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Animations */
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .title {
+    font-size: 2.5rem;
+  }
+  
+  .name {
+    font-size: 1.875rem;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+  }
+  
+  .btn {
+    width: 100%;
+  }
+}
