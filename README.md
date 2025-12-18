@@ -1,59 +1,28 @@
-# AngularExample
+Contact CRM
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.9.
+Contact CRM is a single-page web application built with Angular that allows users to create, manage, and organize contact profiles.
+Each contact can be assigned to a custom label, marked as favorite, and easily searched through a dynamic search bar with suggestions.
 
-## Development server
+The application is fully developed in TypeScript, follows a clean component/service architecture, and uses localStorage for data persistence.
+It is Dockerized and served in production using Nginx, making it easy to deploy and run anywhere.
 
-To start a local development server, run:
+Features
+	•	Create, edit, delete contacts
+	•	Assign contacts to custom labels
+	•	Favorites management
+	•	Real-time search with suggestions
+	•	Responsive UI
+	•	Docker-ready production build
 
-```bash
-ng serve
-```
+Tech Stack
+	•	Angular
+	•	TypeScript
+	•	Docker & Nginx
+	•	LocalStorage
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Run with Docker
 
-## Code scaffolding
+docker build -t contact-crm .
+docker run -p 8080:80 contact-crm
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Then open: http://localhost:8081

@@ -12,7 +12,7 @@ import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angula
   selector: 'app-contact-detail-page',
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './contact-detail-page.html',
-  styleUrls: ['./contact-detail-page.css',]
+  styleUrls: ['./contact-detail-page.css'],
 })
 export class ContactDetailPage {
   id!: number;
@@ -29,10 +29,6 @@ export class ContactDetailPage {
     private fb: FormBuilder
   ) {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
-    this.contact = this.contactsService.getById(this.id)!;
-    if (this.contact.labelId !== null) {
-      this.label = this.labelsService.getById(this.contact.labelId);
-    }
 
     this.form = this.fb.group({
       name: ['', Validators.required],
@@ -40,17 +36,38 @@ export class ContactDetailPage {
       phone: ['', Validators.required],
       album: [''],
       bestSong: [''],
+      labelName: [''],
       photoUrl: ['', Validators.required],
       notes: [''],
     });
-    this.form.patchValue({
-      name: this.contact.name,
-      email: this.contact.email,
-      phone: this.contact.phone,
-      album: this.contact.album,
-      bestSong: this.contact.bestSong,
-      photoUrl: this.contact.photoUrl,
-      notes: this.contact.notes,
+
+    this.loadContact();
+  }
+
+  private loadContact() {
+    this.contactsService.getById(this.id).subscribe((c) => {
+      this.contact = c;
+
+      this.form.patchValue({
+        name: c.name,
+        email: c.email,
+        phone: c.phone,
+        album: c.album,
+        bestSong: c.bestSong,
+        photoUrl: c.photoUrl,
+        notes: c.notes,
+        labelName: '',
+      });
+
+      if (c.labelId !== null) {
+        this.labelsService.getById(c.labelId).subscribe((l) => {
+          this.label = l ?? undefined;
+          this.form.patchValue({ labelName: this.label?.name ?? '' });
+        });
+      } else {
+        this.label = undefined;
+        this.form.patchValue({ labelName: '' });
+      }
     });
   }
 
@@ -60,18 +77,31 @@ export class ContactDetailPage {
 
   deleteContact() {
     if (confirm('Are you sure you want to delete this contact ?')) {
-      this.contactsService.delete(this.id);
-      this.router.navigate(['/contacts']);
+      this.contactsService.delete(this.id).subscribe(() => {
+        this.router.navigate(['/contacts']);
+      });
     }
   }
+
   onSubmit() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
-    } else {
-      this.contactsService.update(this.id, this.form.value);
-      this.edit = false;
-      this.contact = { ...this.contact, ...this.form.value };
     }
+
+    this.contactsService.update(this.id, this.form.value).subscribe((c) => {
+      this.contact = c;
+      this.edit = false;
+
+      if (c.labelId !== null) {
+        this.labelsService.getById(c.labelId).subscribe((l) => {
+          if (!l) return;
+          this.label = l;
+          this.form.patchValue({ labelName: l.name });
+        });
+      } else {
+        this.label = undefined;
+      }
+    });
   }
 }

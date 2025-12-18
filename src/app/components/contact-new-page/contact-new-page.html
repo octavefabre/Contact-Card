@@ -37,6 +37,7 @@
             <label>Notes</label>
             <input formControlName="notes" type="text" placeholder="notes">
         </div>
+        <label>Label</label>
         <input formControlName="labelName" list="labels" placeholder="Label (optionnel)">
         <datalist id="labels">
             @for (l of labels; track l.id) {

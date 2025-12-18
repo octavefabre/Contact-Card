@@ -38,7 +38,7 @@
         <div class="profile-info">
           <h3 class="name">{{ contact.name }}</h3>
           @if (label) {
-            {{ label.name }}
+          {{ label.name }}
           }
 
           <div class="contact-details">
@@ -127,33 +127,30 @@
 }
 
 @if (edit) {
-  <div class="container">
-    <div class="contact-card">
-      <div class="gradient-overlay"></div>
-      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+<div class="container">
+  <div class="contact-card">
+    <div class="gradient-overlay"></div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="card-content">
-        <!-- Header -->
+
         <div class="card-header">
           <h2 class="contact-id">Contact #{{ id }}</h2>
           @if (contact.favorite) {
-            <div class="favorite-badge">
-              <svg class="heart-icon" viewBox="0 0 24 24" fill="currentColor">
-                <path
-                  d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-              </svg>
-              Favorite
-            </div>
+          <div class="favorite-badge">
+            <svg class="heart-icon" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+            </svg>
+            Favorite
+          </div>
           }
         </div>
 
-        <!-- Profile section -->
         <div class="profile-section">
           <div class="image-container">
             <div class="image-wrapper">
-              <!-- même place que l'image, mais champ éditable -->
-              <img [src]="form.get('photoUrl')?.value || contact.photoUrl"
-                   [alt]="contact.photoAlt"
-                   class="profile-image" />
+              <img [src]="form.get('photoUrl')?.value || contact.photoUrl" [alt]="contact.photoAlt"
+                class="profile-image" />
             </div>
             <div class="music-badge">
               <svg class="music-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -165,72 +162,51 @@
           </div>
 
           <div class="profile-info">
-            <!-- Name -->
-            <input class="name"
-                   formControlName="name"
-                   type="text"
-                   placeholder="Artist name" />
+            <input class="name" formControlName="name" type="text" placeholder="Artist name" />
 
-            <!-- CONTACT DETAILS -->
+            <input class="label" formControlName="labelName" type="text" placeholder="Label name">
+
             <div class="contact-details">
-              <!-- EMAIL -->
+
               <div class="detail-item">
                 <svg class="icon mail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <rect width="20" height="16" x="2" y="4" rx="2" />
                   <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
                 </svg>
-                <input formControlName="email"
-                       type="email"
-                       placeholder="email@example.com" />
+                <input formControlName="email" type="email" placeholder="email@example.com" />
               </div>
 
-              <!-- PHONE -->
               <div class="detail-item">
                 <svg class="icon phone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path
                     d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                 </svg>
-                <input formControlName="phone"
-                       type="text"
-                       placeholder="+1 (555) 000-0000" />
+                <input formControlName="phone" type="text" placeholder="+1 (555) 000-0000" />
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Music info -->
         <div class="music-info">
           <div class="info-item">
             <p class="info-label">Best Album</p>
-            <input formControlName="album"
-                   type="text"
-                   class="info-value"
-                   placeholder="Favorite album" />
+            <input formControlName="album" type="text" class="info-value" placeholder="Favorite album" />
           </div>
 
           <div class="info-item">
             <p class="info-label">Best Track</p>
-            <input formControlName="bestSong"
-                   type="text"
-                   class="info-value"
-                   placeholder="Their best song" />
+            <input formControlName="bestSong" type="text" class="info-value" placeholder="Their best song" />
           </div>
         </div>
 
-        <!-- Notes -->
         <div class="notes-section">
           <p class="notes-label">Notes</p>
-          <input formControlName="notes"
-                 type="text"
-                 class="notes-text"
-                 placeholder="notes" />
+          <input formControlName="notes" type="text" class="notes-text" placeholder="notes" />
         </div>
 
-        <!-- Timestamps (lecture seule, même style) -->
         <div class="timestamps">
           <div class="timestamp-item">
-            <svg class="icon calendar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-              stroke-width="2">
+            <svg class="icon calendar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
               <line x1="16" x2="16" y1="2" y2="6" />
               <line x1="8" x2="8" y1="2" y2="6" />
@@ -239,8 +215,7 @@
             <span>Created: {{ contact.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
           </div>
           <div class="timestamp-item">
-            <svg class="icon calendar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-              stroke-width="2">
+            <svg class="icon calendar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
               <line x1="16" x2="16" y1="2" y2="6" />
               <line x1="8" x2="8" y1="2" y2="6" />
@@ -250,14 +225,13 @@
           </div>
         </div>
 
-        <!-- Buttons -->
         <div class="action-buttons">
           <button type="submit" class="btn btn-primary">
             Save
           </button>
         </div>
       </div>
-      </form>
-    </div>
+    </form>
   </div>
+</div>
 }

@@ -2,17 +2,17 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Contact } from '../../models/contact.model';
-import { Label } from '../../models/label.model';
 import { ContactsService } from '../../services/contacts.services';
 import { LabelsService } from '../../services/label.services';
+import { Contact } from '../../models/contact.model';
+import { Label } from '../../models/label.model';
 
 @Component({
   selector: 'app-contact-new-page',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './contact-new-page.html',
-  styleUrl: './contact-new-page.css',
+  styleUrls: ['./contact-new-page.css'],
 })
 export class ContactNewPage {
   form!: FormGroup;
@@ -24,7 +24,6 @@ export class ContactNewPage {
     private labelsService: LabelsService,
     private router: Router
   ) {
-    this.labels = this.labelsService.getAll();
     this.form = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -38,36 +37,37 @@ export class ContactNewPage {
   }
 
   onSubmit() {
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
+    if (this.form.invalid) return;
 
-    const contacts = this.contactsService.getAll();
-    const maxId = contacts.length ? Math.max(...contacts.map((c) => c.id)) : 0;
-    const now = new Date().toISOString();
     const v = this.form.value;
-    const name = (v.labelName ?? '').trim();
-    const labelId = name ? this.labelsService.getOrCreateIdByName(name) : null;
+    const labelName = v.labelName?.trim();
 
-    const newContact: Contact = {
-      id: maxId + 1,
-      name: v.name!,
-      email: v.email!,
-      phone: v.phone!,
-      album: v.album ?? '',
-      bestSong: v.bestSong ?? '',
-      labelId: labelId ?? null,
+    if (labelName) {
+      this.labelsService.getOrCreateIdByName(labelName).subscribe((labelId) => {
+        this.createContact(labelId);
+      });
+    } else {
+      this.createContact(null);
+    }
+  }
+
+  private createContact(labelId: number | null) {
+    const v = this.form.value;
+
+    const data: Partial<Contact> = {
+      name: v.name,
+      email: v.email,
+      phone: v.phone,
+      album: v.album,
+      bestSong: v.bestSong,
+      notes: v.notes,
+      photoUrl: v.photoUrl,
+      labelId,
       favorite: false,
-      notes: v.notes ?? '',
-      createdAt: now,
-      updatedAt: now,
-      photoUrl: v.photoUrl ?? '',
-      photoAlt: v.name ?? '',
     };
 
-    this.contactsService.saveAll([...contacts, newContact]);
-
-    this.router.navigate(['/contacts']);
+    this.contactsService.create(data as Contact).subscribe(() => {
+      this.router.navigate(['/contacts']);
+    });
   }
 }

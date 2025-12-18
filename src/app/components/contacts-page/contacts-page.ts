@@ -16,7 +16,10 @@ export class ContactsPage {
   filteredContacts: Contact[] = [];
 
   constructor(private contactsService: ContactsService) {
-    this.contacts = this.contactsService.getAll();
+    this.contactsService.getAll().subscribe((data) => {
+      this.contacts = data;
+      this.filteredContacts = data;
+    });
     this.filteredContacts = this.contacts;
     this.contactsService.searchTerm$.subscribe((t) => {
       const txt = t.toLowerCase();
@@ -25,8 +28,12 @@ export class ContactsPage {
   }
 
   onToggleFavorite(id: number) {
-    this.contactsService.toggleFavorite(id);
-    this.contacts = this.contactsService.getAll();
-    this.filteredContacts = this.contacts;
+    const c = this.contacts.find((x) => x.id === id);
+    if (!c) return;
+
+    this.contactsService.toggleFavorite(id, c.favorite).subscribe((updated) => {
+      this.contacts = this.contacts.map((x) => (x.id === id ? updated : x));
+      this.filteredContacts = this.filteredContacts.map((x) => (x.id === id ? updated : x));
+    });
   }
 }
