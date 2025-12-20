@@ -72,6 +72,7 @@ export class Header {
     (document.querySelector('.search-input') as HTMLInputElement).value = '';
   }
   goToLabelDetail(id: number) {
+    this.labelsService.selectedLabelId$.next(id);
     this.router.navigate(['/contacts']);
     this.labelSuggestions = [];
     (document.querySelector('.search-input') as HTMLInputElement).value = '';

@@ -37,7 +37,7 @@ export class ContactNewPage {
   }
 
   onSubmit() {
-    if (this.form.invalid) return;
+    if (this.form.invalid) /*ajouter gestion erreur*/ return;
 
     const v = this.form.value;
     const labelName = v.labelName?.trim();

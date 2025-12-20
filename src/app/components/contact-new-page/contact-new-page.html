@@ -39,7 +39,7 @@
         </div>
         <label>Label</label>
         <input formControlName="labelName" list="labels" placeholder="Label (optionnel)">
-        <datalist id="labels">
+        <datalist id="labels"> <!--ajouter choix-->
             @for (l of labels; track l.id) {
             <option [value]="l.name"></option>
             }

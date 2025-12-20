@@ -28,7 +28,7 @@
             <path d="m21 21-4.35-4.35" />
           </svg>
           <input type="search" placeholder="Search artists or labels" class="search-input" (input)="onSearch($event)">
-          <div class="suggestions-dropdown glass" [class.visible]="suggestions.length > 0">
+          <div class="suggestions-dropdown glass" [class.visible]="suggestions.length > 0 || labelSuggestions.length > 0">
             <ul class="suggestions-list">
               @for (l of labelSuggestions; track l.id) {
               <li>
