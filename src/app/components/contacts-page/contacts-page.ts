@@ -20,12 +20,11 @@ export class ContactsPage {
   constructor(private contactsService: ContactsService, private labelsService: LabelsService) {
     this.contactsService.getAll().subscribe((data) => {
       this.contacts = data;
-      this.filteredContacts = data;
+      this.applyFilters();
     });
     this.filteredContacts = this.contacts;
-    this.contactsService.searchTerm$.subscribe((t) => {
-      const txt = t.toLowerCase();
-      this.filteredContacts = this.contacts.filter((c) => c.name.toLowerCase().includes(txt));
+    this.contactsService.searchTerm$.subscribe(() => {
+      this.applyFilters();
     });
 
     this.labelsService.selectedLabelId$.subscribe((id) => {
@@ -46,7 +45,7 @@ export class ContactsPage {
 
     this.contactsService.toggleFavorite(id, c.favorite).subscribe((updated) => {
       this.contacts = this.contacts.map((x) => (x.id === id ? updated : x));
-      this.filteredContacts = this.filteredContacts.map((x) => (x.id === id ? updated : x));
+      this.applyFilters();
     });
   }
 }

@@ -3,7 +3,7 @@ const cors = require('cors');
 const db = require('./db');
 
 const app = express();
-app.use(cors());
+app.use(cors({ origin: 'http://localhost:4200' })); //sécurité ici pour limiter l'accés à l'API
 app.use(express.json());
 
 // LABELS
@@ -87,40 +87,44 @@ function checkEmail(email) {
 
 //CREATION CONTACT BDD
 app.post('/contacts', (req, res) => {
-  const c = req.body ?? {};
-  const now = new Date().toISOString();
-  const nameValid = checkName(c.name);
-  const phoneValid = checkPhone(c.phone);
-  const emailValid = checkEmail(c.email);
-  //securiser davantage//
-  if (!nameValid || !phoneValid || !emailValid) {
-    return;
-  }
+  try {
+    const c = req.body ?? {};
+    const now = new Date().toISOString();
+    const nameValid = checkName(c.name);
+    const phoneValid = checkPhone(c.phone);
+    const emailValid = checkEmail(c.email);
 
-  const info = db
-    .prepare(
-      `
+    if (!nameValid || !phoneValid || !emailValid) {
+      return res.status(400).json({ error: 'Invalid Form Data' });
+    }
+
+    const info = db
+      .prepare(
+        `
     INSERT INTO contacts (name,email,phone,album,bestSong,labelId,favorite,notes,photoUrl,photoAlt,createdAt,updatedAt)
     VALUES (?,?,?,?,?,?,?,?,?,?,?,?)
   `
-    )
-    .run(
-      c.name,
-      c.email,
-      c.phone,
-      c.album ?? '',
-      c.bestSong ?? '',
-      c.labelId ?? null,
-      c.favorite ? 1 : 0,
-      c.notes ?? '',
-      c.photoUrl ?? '',
-      c.photoAlt ?? '',
-      now,
-      now
-    );
+      )
+      .run(
+        c.name,
+        c.email,
+        c.phone,
+        c.album ?? '',
+        c.bestSong ?? '',
+        c.labelId ?? null,
+        c.favorite ? 1 : 0,
+        c.notes ?? '',
+        c.photoUrl ?? '',
+        c.photoAlt ?? '',
+        now,
+        now
+      );
 
-  const created = db.prepare('SELECT * FROM contacts WHERE id = ?').get(info.lastInsertRowid);
-  res.status(201).json(created);
+    const created = db.prepare('SELECT * FROM contacts WHERE id = ?').get(info.lastInsertRowid);
+    res.status(201).json(created);
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
 });
 
 app.put('/contacts/:id', (req, res) => {

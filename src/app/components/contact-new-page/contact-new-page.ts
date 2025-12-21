@@ -14,6 +14,7 @@ import { Label } from '../../models/label.model';
   templateUrl: './contact-new-page.html',
   styleUrls: ['./contact-new-page.css'],
 })
+
 export class ContactNewPage {
   form!: FormGroup;
   labels: Label[] = [];
@@ -37,7 +38,10 @@ export class ContactNewPage {
   }
 
   onSubmit() {
-    if (this.form.invalid) /*ajouter gestion erreur*/ return;
+    if (this.form.invalid){
+      alert("champs invalides");
+      return;
+    }
 
     const v = this.form.value;
     const labelName = v.labelName?.trim();

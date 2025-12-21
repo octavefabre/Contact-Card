@@ -89,19 +89,32 @@ export class ContactDetailPage {
       return;
     }
 
-    this.contactsService.update(this.id, this.form.value).subscribe((c) => {
-      this.contact = c;
-      this.edit = false;
+    const v = this.form.value;
+    const labelName = (v.labelName ?? '').trim();
 
-      if (c.labelId !== null) {
-        this.labelsService.getById(c.labelId).subscribe((l) => {
-          if (!l) return;
-          this.label = l;
-          this.form.patchValue({ labelName: l.name });
-        });
-      } else {
-        this.label = undefined;
-      }
+    const updateContact = (labelId: number | null) => {
+      const payload: Partial<Contact> = {
+        name: v.name,
+        email: v.email,
+        phone: v.phone,
+        album: v.album,
+        bestSong: v.bestSong,
+        photoUrl: v.photoUrl,
+        notes: v.notes,
+        labelId,
+      };
+
+      this.contactsService.update(this.id, payload).subscribe((c) => {
+        this.contact = c;
+        this.edit = false;
+        this.loadContact();
+      });
+    };
+
+    if (!labelName) return updateContact(null);
+
+    this.labelsService.getOrCreateIdByName(labelName).subscribe((id) => {
+      updateContact(id);
     });
   }
 }

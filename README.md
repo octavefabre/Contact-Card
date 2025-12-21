@@ -1,24 +1,49 @@
 Contact CRM
 
 Contact CRM is a single-page web application built with Angular that allows users to create, manage, and organize contact profiles.
-Each contact can be assigned to a custom label, marked as favorite, and easily searched through a dynamic search bar with suggestions.
 
-The application is fully developed in TypeScript, follows a clean component/service architecture, and uses localStorage for data persistence.
-It is Dockerized and served in production using Nginx, making it easy to deploy and run anywhere.
+Each contact can be assigned to a custom label, marked as favorite, and easily searched through a dynamic search bar with real-time suggestions.
+The application is built with a clean component / service architecture and communicates with a Node.js REST API for persistent data storage.
+
+The project is Docker-ready and designed to be easily deployable in a production environment.
+
+⸻
 
 Features
 	•	Create, edit, delete contacts
 	•	Assign contacts to custom labels
 	•	Favorites management
-	•	Real-time search with suggestions
+	•	Real-time search (contacts & labels)
+	•	Filter contacts by label
 	•	Responsive UI
-	•	Docker-ready production build
+	•	Persistent data storage (SQLite)
+	•	REST API backend
+	•	Docker-ready setup
+
+⸻
 
 Tech Stack
+
+Frontend
 	•	Angular
 	•	TypeScript
-	•	Docker & Nginx
-	•	LocalStorage
+	•	Reactive Forms
+	•	RxJS
+
+Backend
+	•	Node.js
+	•	Express
+	•	SQLite (better-sqlite3)
+	•	REST API
+
+DevOps
+	•	Docker
+	•	Docker Compose
+	•	Nginx (production-ready frontend)
+
+
+start angular:
+ng serve
 
 Run with Docker
 
